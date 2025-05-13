@@ -36,4 +36,10 @@ public class UserEntity extends BaseEntity {
     private String email;
 
     private LocalDateTime lastLogin;
+
+    public static UserEntity getUserEntity(UUID userId) {
+        return UserEntity.builder()
+                .id(userId)
+                .build();
+    }
 }

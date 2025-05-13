@@ -29,13 +29,7 @@ public class SecurityConfig {
 
     public static final List<String> WHITE_LIST = List.of(
             "/api/v1/users/actions/sign-up",
-            "/api/v1/users/actions/login",
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/swagger-ui.html",
-            "/swagger-resources/**",
-            "/webjars/**",
-            "/v3/api-docs"
+            "/api/v1/users/actions/login"
     );
 
     @Bean
@@ -45,6 +39,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.securityMatchers(requestMatcherConfigurer -> requestMatcherConfigurer.requestMatchers("/api/v1/**"));
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests(authorizeRequests ->

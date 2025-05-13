@@ -1,6 +1,7 @@
 package com.onion.backend.user.service;
 
 import com.onion.backend.user.domain.UserDetailsImpl;
+import com.onion.backend.user.domain.UserRole;
 import com.onion.backend.user.entity.UserEntity;
 import com.onion.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .username(user.getUsername())
                 .userId(user.getId())
                 .email(user.getEmail())
+                .userRole(UserRole.ROLE_USER)
                 .password(user.getPassword())
                 .build();
     }

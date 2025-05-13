@@ -51,7 +51,7 @@ public class UserCommandService {
             throw new RuntimeException("Invalid password");
         }
 
-        String accessToken = jwtProvider.createToken(user.getUsername());
+        String accessToken = jwtProvider.createToken(user.getEmail());
         return new LoginResponse(accessToken);
     }
 }

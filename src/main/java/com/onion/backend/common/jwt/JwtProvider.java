@@ -46,12 +46,12 @@ public class JwtProvider {
         this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey));
     }
 
-    public String createToken(String username) {
+    public String createToken(String email) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + tokenValidityInMilliseconds);
 
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(key, SignatureAlgorithm.HS512)
@@ -86,13 +86,13 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        String username = Jwts.parserBuilder()
+        String email = Jwts.parserBuilder()
                 .setSigningKey(key).build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
