@@ -25,3 +25,9 @@ springdoc:
     enabled: true
   packages-to-scan: com.onion.backend
   paths-to-match: /**
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+jwt:
+  secret: c2VjcmV0LWtleS1tdXN0LWJlLWF0LWxlYXN0LTMyLWNoYXJhY3RlcnMtbG9uZy1hbmQtdGhpcy1pcy1iYXNlNjQtZW5jb2RlZA==
+  expiration: 86400000
