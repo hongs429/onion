@@ -26,4 +26,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(apiErrorResponse);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiErrorResponse> runtimeException(RuntimeException e) {
+        log.error("Global exception", e);
+        ApiErrorResponse apiErrorResponse = ApiErrorResponse.of("", e.getMessage(), HttpStatus.BAD_REQUEST.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiErrorResponse);
+    }
 }

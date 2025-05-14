@@ -30,4 +30,4 @@ springdoc:
 
 jwt:
   secret: c2VjcmV0LWtleS1tdXN0LWJlLWF0LWxlYXN0LTMyLWNoYXJhY3RlcnMtbG9uZy1hbmQtdGhpcy1pcy1iYXNlNjQtZW5jb2RlZA==
-  expiration: 86400000
+  expiration: 3200000000000
