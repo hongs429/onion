@@ -30,7 +30,7 @@ public class CommentCommandService {
             throw new RuntimeException("Board not found");
         }
 
-        if (articleRepository.isNotExistsByIdAndIsDeletedFalse(articleId)) {
+        if (articleRepository.isNotExistByIdAndIsDeletedFalse(articleId)) {
             throw new RuntimeException("Article not found");
         }
 
@@ -48,7 +48,7 @@ public class CommentCommandService {
             throw new RuntimeException("Board not found");
         }
 
-        if (articleRepository.isNotExistsByIdAndIsDeletedFalse(articleId)) {
+        if (articleRepository.isNotExistByIdAndIsDeletedFalse(articleId)) {
             throw new RuntimeException("Article not found");
         }
 
@@ -66,7 +66,7 @@ public class CommentCommandService {
             throw new RuntimeException("Board not found");
         }
 
-        if (articleRepository.isNotExistsByIdAndIsDeletedFalse(articleId)) {
+        if (articleRepository.isNotExistByIdAndIsDeletedFalse(articleId)) {
             throw new RuntimeException("Article not found");
         }
 

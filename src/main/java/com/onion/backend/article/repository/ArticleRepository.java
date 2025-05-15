@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
-    boolean isNotExistsByIdAndIsDeletedFalse(Long articleId);
+    boolean existsByIdAndIsDeletedFalse(Long articleId);
 
     Optional<ArticleEntity> findByIsDeletedFalseAndIdAndAuthorId(Long articleId, UUID authorId);
 
@@ -28,5 +28,9 @@ public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
     default ArticleEntity findByIsDeletedFalseAndIdAndAuthorIdOrThrow(Long articleId, UUID userId) {
         return findByIsDeletedFalseAndIdAndAuthorId(articleId, userId).orElseThrow(() -> new RuntimeException("Article not found"));
+    }
+
+    default boolean isNotExistByIdAndIsDeletedFalse(Long articleId) {
+        return !existsByIdAndIsDeletedFalse(articleId);
     }
 }
