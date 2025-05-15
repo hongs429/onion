@@ -1,11 +1,10 @@
-package com.onion.backend.article.entity;
+package com.onion.backend.comment.entity;
 
 
 import static jakarta.persistence.FetchType.LAZY;
 
-import com.onion.backend.article.dto.ArticleEditRequest;
-import com.onion.backend.board.entity.BoardEntity;
-import com.onion.backend.comment.entity.CommentEntity;
+import com.onion.backend.article.entity.ArticleEntity;
+import com.onion.backend.comment.dto.CommentEditRequest;
 import com.onion.backend.common.entity.BaseEntity;
 import com.onion.backend.user.entity.UserEntity;
 import jakarta.persistence.Column;
@@ -17,59 +16,39 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "article")
+@Entity(name = "comment")
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ArticleEntity extends BaseEntity {
-
+public class CommentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_id")
+    @Column(name = "comment_id")
     private Long id;
-
-    @Column(nullable = false)
-    private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-
-    @Builder.Default
-    @Column(nullable = false)
-    private Boolean isDeleted = false;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private UserEntity author;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "board_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private BoardEntity board;
+    @JoinColumn(name = "article_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private ArticleEntity article;
 
     @Builder.Default
-    @OneToMany(mappedBy = "article")
-    private List<CommentEntity> comments = new ArrayList<>();
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
 
-    public static ArticleEntity getArticleEntity(Long articleId) {
-        return ArticleEntity.builder()
-                .id(articleId)
-                .build();
-    }
-
-    public void edit(ArticleEditRequest request) {
-        if (request.getTitle() != null) {
-            this.title = request.getTitle();
-        }
+    public void edit(CommentEditRequest request) {
         if (request.getContent() != null) {
             this.content = request.getContent();
         }

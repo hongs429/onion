@@ -4,6 +4,7 @@ package com.onion.backend.article.controller;
 import com.onion.backend.article.dto.ArticleCreateRequest;
 import com.onion.backend.article.dto.ArticleEditRequest;
 import com.onion.backend.article.dto.ArticleResponse;
+import com.onion.backend.article.dto.ArticleWithCommentResponse;
 import com.onion.backend.article.service.ArticleCommandService;
 import com.onion.backend.article.service.ArticleQueryService;
 import com.onion.backend.user.domain.UserDetailsImpl;
@@ -57,6 +58,16 @@ public class ArticleController {
         return ResponseEntity.ok(articleQueryService.getArticlesV2(boardId, lastId, firstId));
     }
 
+    @GetMapping("/boards/{boardId}/articles/{articleId}")
+    public ResponseEntity<ArticleWithCommentResponse> getArticleWithComments(
+            @PathVariable Long boardId,
+            @PathVariable Long articleId
+    ) {
+        ArticleWithCommentResponse result = articleQueryService.getArticleWithComments(boardId, articleId);
+
+        return ResponseEntity.ok(result);
+    }
+
     @PutMapping("/boards/{boardId}/articles/{articleId}")
     public ResponseEntity<Void> updateArticle(
             @PathVariable Long boardId,
@@ -77,5 +88,6 @@ public class ArticleController {
 
         return ResponseEntity.noContent().build();
     }
+
 
 }
