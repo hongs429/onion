@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ArticleQueryService {
 
+    private final ArticleCommandService articleCommandService;
     private final ArticleRepository articleRepository;
     private final BoardRepository boardRepository;
 
@@ -74,10 +75,13 @@ public class ArticleQueryService {
                 () -> new RuntimeException("Article not found")
         );
 
+        articleCommandService.increaseViewCount(articleId);
+
         return ArticleWithCommentResponse.builder()
                 .articleId(articleWithComments.getId())
                 .title(articleWithComments.getTitle())
                 .content(articleWithComments.getContent())
+                .viewCount(articleWithComments.getViewCount())
                 .createdAt(articleWithComments.getCreatedAt())
                 .updatedAt(articleWithComments.getUpdatedAt())
                 .comments(articleWithComments.getComments().stream().map(

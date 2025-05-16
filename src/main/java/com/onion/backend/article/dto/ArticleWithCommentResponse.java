@@ -17,6 +17,7 @@ public class ArticleWithCommentResponse {
     private Long articleId;
     private String title;
     private String content;
+    private Long viewCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<CommentResponse> comments;

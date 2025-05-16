@@ -5,9 +5,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
+
+    @Query("update article a set a.viewCount = a.viewCount + 1 where a.id = :articleId")
+    @Modifying
+    void increaseViewCount(@Param("articleId") Long articleId);
 
     boolean existsByIdAndIsDeletedFalse(Long articleId);
 
@@ -32,5 +38,9 @@ public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
     default boolean isNotExistByIdAndIsDeletedFalse(Long articleId) {
         return !existsByIdAndIsDeletedFalse(articleId);
+    }
+
+    default ArticleEntity findByIdOrThrow(Long articleId) {
+        return findById(articleId).orElseThrow(() -> new RuntimeException("Article not found"));
     }
 }

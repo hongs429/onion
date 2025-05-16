@@ -10,10 +10,13 @@ import com.onion.backend.board.repository.BoardRepository;
 import com.onion.backend.user.entity.UserEntity;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+@Slf4j
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -57,5 +60,15 @@ public class ArticleCommandService {
 
         article.softDelete();
         articleRepository.save(article);
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void increaseViewCount(Long articleId) {
+        try {
+            articleRepository.increaseViewCount(articleId);
+        } catch (Exception e) {
+            log.error("Error in increaseViewCount: {}", e.getMessage());
+        }
     }
 }

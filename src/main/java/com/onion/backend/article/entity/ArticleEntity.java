@@ -56,6 +56,9 @@ public class ArticleEntity extends BaseEntity {
     @JoinColumn(name = "board_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private BoardEntity board;
 
+    @Column(nullable = false)
+    private Long viewCount;
+
     @Builder.Default
     @OneToMany(mappedBy = "article")
     private List<CommentEntity> comments = new ArrayList<>();
@@ -77,5 +80,9 @@ public class ArticleEntity extends BaseEntity {
 
     public void softDelete() {
         this.isDeleted = true;
+    }
+
+    public void increaseViewCount() {
+        this.viewCount++;
     }
 }
