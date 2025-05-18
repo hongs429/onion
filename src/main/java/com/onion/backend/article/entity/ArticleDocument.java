@@ -1,27 +1,27 @@
-package com.onion.backend.article.dto;
+package com.onion.backend.article.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.onion.backend.common.domain.Author;
+import com.onion.backend.common.entity.DocumentEntity;
 import java.time.LocalDateTime;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ArticleResponse {
-    private Long articleId;
+@NoArgsConstructor
+public class ArticleDocument implements DocumentEntity {
+
     private String title;
     private String content;
     private Long viewCount;
-    @JsonIgnore
     private boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private UUID authorId;
     private Long boardId;
+    private Author author;
+
 }

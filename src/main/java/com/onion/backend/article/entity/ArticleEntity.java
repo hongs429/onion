@@ -56,8 +56,9 @@ public class ArticleEntity extends BaseEntity {
     @JoinColumn(name = "board_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private BoardEntity board;
 
+    @Builder.Default
     @Column(nullable = false)
-    private Long viewCount;
+    private Long viewCount = 0L;
 
     @Builder.Default
     @OneToMany(mappedBy = "article")

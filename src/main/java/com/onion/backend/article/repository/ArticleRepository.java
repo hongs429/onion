@@ -1,6 +1,7 @@
 package com.onion.backend.article.repository;
 
 import com.onion.backend.article.entity.ArticleEntity;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,4 +44,6 @@ public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
     default ArticleEntity findByIdOrThrow(Long articleId) {
         return findById(articleId).orElseThrow(() -> new RuntimeException("Article not found"));
     }
+
+    List<ArticleEntity> findAllByIdIn(Collection<Long> ids);
 }

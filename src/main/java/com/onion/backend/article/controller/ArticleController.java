@@ -10,6 +10,8 @@ import com.onion.backend.article.service.ArticleQueryService;
 import com.onion.backend.user.domain.UserDetailsImpl;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +39,7 @@ public class ArticleController {
             @RequestBody ArticleCreateRequest request,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        articleCommandService.writeArticle(boardId, userDetails.getUserId(), request);
+        articleCommandService.writeArticle(boardId, userDetails, request);
 
         return ResponseEntity.noContent().build();
     }
@@ -74,7 +76,7 @@ public class ArticleController {
             @PathVariable Long articleId,
             @RequestBody ArticleEditRequest request,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        articleCommandService.editArticle(boardId, articleId, userDetails.getUserId(), request);
+        articleCommandService.editArticle(boardId, articleId, userDetails, request);
 
         return ResponseEntity.noContent().build();
     }
@@ -84,10 +86,20 @@ public class ArticleController {
             @PathVariable Long boardId,
             @PathVariable Long articleId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        articleCommandService.deleteArticleSoftly(boardId, articleId, userDetails.getUserId());
+        articleCommandService.deleteArticleSoftly(boardId, articleId, userDetails);
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/boards/{boardId}/articles/search")
+    public ResponseEntity<Page<ArticleResponse>> searchArticles(
+            @PathVariable Long boardId,
+            @RequestParam String keyword,
+            Pageable pageable) {
+
+        return ResponseEntity.ok(articleQueryService.searchArticle(boardId, keyword, pageable));
+    }
+
 
 
 }

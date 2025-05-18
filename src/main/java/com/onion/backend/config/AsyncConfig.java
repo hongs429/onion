@@ -26,13 +26,13 @@ public class AsyncConfig implements AsyncConfigurer {
         return new CustomAsyncUncaughtExceptionHandler();
     }
 
-    @Bean(name = "defaultAsyncTaskExecutor")
+    @Bean(name = "elasticsearch-async")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(2);
         executor.setMaxPoolSize(2);
         // 큐의 용량(capacity) -> 시간 제한이 걸리지 않고 큐에서 무기한 대기하는 것이 기본 동작
-        executor.setThreadNamePrefix("async-");
+        executor.setThreadNamePrefix("es-async-");
         return executor;
     }
 

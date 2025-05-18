@@ -39,3 +39,12 @@ jwt:
   expiration: 3200000000000
 
 
+elasticsearch:
+  host: localhost
+  port: 9200
+  username: elastic
+  password: onion1!
+  connectTimeout: 30000
+  socketTimeout: 30000
+  maxConnection: 10
+  maxConnectionPerRoute: 10
