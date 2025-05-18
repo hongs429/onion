@@ -52,7 +52,31 @@ services:
     depends_on:
       - elasticsearch
 
+  redis:
+    image: redis:7.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: onion1!
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db
+
+
 volumes:
   db_data:
   es-data:
+    driver: local
+  redis-data:
+    driver: local
+  mongodb-data:
     driver: local

@@ -2,7 +2,6 @@ package com.onion.backend.article.entity;
 
 
 import com.onion.backend.common.domain.Author;
-import com.onion.backend.common.entity.DocumentEntity;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleDocument implements DocumentEntity {
+public class ArticleDocument {
 
     private String title;
     private String content;
