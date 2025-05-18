@@ -5,6 +5,7 @@ import com.onion.backend.advertisement.dto.AdResponse;
 import com.onion.backend.advertisement.dto.AdWriteRequest;
 import com.onion.backend.advertisement.service.AdvertisementCommandService;
 import com.onion.backend.advertisement.service.AdvertisementQueryService;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,7 +26,7 @@ public class AdvertisementController {
     private final AdvertisementQueryService advertisementQueryService;
     private final AdvertisementCommandService advertisementCommandService;
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<Void> writeAdvertisement(@RequestBody AdWriteRequest request) {
         advertisementCommandService.writeAdvertisement(request);
 
@@ -37,7 +39,19 @@ public class AdvertisementController {
     }
 
     @GetMapping("/{advertisementId}")
-    public ResponseEntity<AdResponse> getAdvertisement(@PathVariable UUID advertisementId) {
-        return ResponseEntity.ok(advertisementQueryService.getAdvertisement(advertisementId));
+    public ResponseEntity<AdResponse> getAdvertisement(
+            @PathVariable UUID advertisementId,
+            @RequestParam(value = "isTrueView", defaultValue = "false") Boolean isTrueView,
+            HttpServletRequest request) {
+        return ResponseEntity.ok(
+                advertisementQueryService.getAdvertisement(advertisementId, request.getRemoteAddr(), isTrueView));
+    }
+
+    @PostMapping("/{advertisementId}/actions/click")
+    public ResponseEntity<Void> clickAdvertisement(
+            @PathVariable UUID advertisementId,
+            HttpServletRequest request) {
+        advertisementQueryService.clickAdvertisement(advertisementId, request.getRemoteAddr());
+        return ResponseEntity.noContent().build();
     }
 }

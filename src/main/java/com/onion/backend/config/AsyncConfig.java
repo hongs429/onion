@@ -31,10 +31,20 @@ public class AsyncConfig implements AsyncConfigurer {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(2);
         executor.setMaxPoolSize(2);
-        // 큐의 용량(capacity) -> 시간 제한이 걸리지 않고 큐에서 무기한 대기하는 것이 기본 동작
         executor.setThreadNamePrefix("es-async-");
+        executor.setTaskDecorator(new AsyncContextCopyDecorator());
         return executor;
     }
+
+    @Bean(name = "default-async")
+    public Executor defaultTaskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setThreadNamePrefix("default-async-");
+        return executor;
+    }
+
 
     @Slf4j
     private static class CustomAsyncUncaughtExceptionHandler implements AsyncUncaughtExceptionHandler {

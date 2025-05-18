@@ -10,6 +10,10 @@ spring:
       idle-timeout: 30000
       connection-timeout: 10000
       max-lifetime: 1800000
+  data:
+    mongodb:
+      uri: mongodb://admin:onion1!@localhost:27017/onion-db?retryWrites=true&w=majority&maxPoolSize=50&minPoolSize=10&maxIdleTimeMS=30000&waitQueueTimeoutMS=10000&connectTimeoutMS=5000&socketTimeoutMS=3000&heartbeatFrequencyMS=10000&serverSelectionTimeoutMS=5000&authSource=admin
+
 
   jpa:
     hibernate:
@@ -52,3 +56,4 @@ elasticsearch:
 redis:
   host: localhost
   port: 6379
+
