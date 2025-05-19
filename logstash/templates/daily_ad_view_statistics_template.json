@@ -1,0 +1,35 @@
+{
+  "index_patterns": ["daily_ad_view_statistics*"],
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 0,
+    "index.mapping.coerce": true
+  },
+  "mappings": {
+    "properties": {
+      "daily_ad_view_statistics_id": {
+        "type": "keyword",
+        "ignore_malformed": true
+      },
+      "advertisement_id": {
+        "type": "keyword",
+        "ignore_malformed": true
+      },
+      "unique_view_count": {
+        "type": "long"
+      },
+      "statistics_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "created_at": {
+        "type": "date",
+        "format": "yyyy-MM-dd'T'HH:mm:ss.SSSSSS||yyyy-MM-dd'T'HH:mm:ss.SSS||strict_date_optional_time"
+      },
+      "updated_at": {
+        "type": "date",
+        "format": "yyyy-MM-dd'T'HH:mm:ss.SSSSSS||yyyy-MM-dd'T'HH:mm:ss.SSS||strict_date_optional_time"
+      }
+    }
+  }
+}
