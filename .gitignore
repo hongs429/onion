@@ -39,3 +39,4 @@ db_data/
 es-data/
 redis-data/
 mongodb-data/
+rabbitmq-data/

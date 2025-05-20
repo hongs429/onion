@@ -25,7 +25,7 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.onion.backend.adhistory.repository")
+@EnableMongoRepositories(basePackages = "com.onion.backend")
 @EnableMongoAuditing
 public class MongoDBConfig {
 
