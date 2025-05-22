@@ -12,6 +12,7 @@ import com.onion.backend.article.repository.ArticleRepository;
 import com.onion.backend.board.entity.BoardEntity;
 import com.onion.backend.board.repository.BoardRepository;
 import com.onion.backend.common.domain.Author;
+import com.onion.backend.notification.NotificationSender;
 import com.onion.backend.user.domain.UserDetailsImpl;
 import com.onion.backend.user.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class ArticleCommandService {
     private final BoardRepository boardRepository;
     private final ArticleRepository articleRepository;
     private final ApplicationEventPublisher publisher;
+    private final NotificationSender notificationSender;
 
     public void writeArticle(Long boardId, UserDetailsImpl user, ArticleCreateRequest request) {
         BoardEntity board = boardRepository.findByIdOrThrow(boardId);
@@ -43,6 +45,12 @@ public class ArticleCommandService {
                 .build();
 
         ArticleEntity savedArticle = articleRepository.save(article);
+
+        notificationSender.sendNotification(
+                "notification.exchange",
+                "notification.article.write",
+                savedArticle
+                );
 
         publishWriteArticleEvent(user, savedArticle);
     }

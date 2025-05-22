@@ -16,6 +16,12 @@ spring:
     mongodb:
       uri: mongodb://admin:onion1!@localhost:27017/onion-db?retryWrites=true&w=majority&maxPoolSize=50&minPoolSize=10&maxIdleTimeMS=30000&waitQueueTimeoutMS=10000&connectTimeoutMS=5000&socketTimeoutMS=3000&heartbeatFrequencyMS=10000&serverSelectionTimeoutMS=5000&authSource=admin
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: onion-user
+    password: onion1!
+    virtual-host: /
 
   jpa:
     hibernate:

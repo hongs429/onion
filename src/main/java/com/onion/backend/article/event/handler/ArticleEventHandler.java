@@ -20,7 +20,7 @@ public class ArticleEventHandler {
     private final ElasticSearchProperties elasticSearchProperties;
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    public void handleWriteArticleEvent(WriteArticleEvent event) {
+    public void syncElasticSearch(WriteArticleEvent event) {
 
         ArticleDocument document = ArticleMapper.toDocument(event.getAuthor(), event.getArticle());
         elasticSearchService.indexDocument(elasticSearchProperties.getArticleIndex(), event.getArticle().getArticleId().toString(), document);

@@ -47,7 +47,7 @@ public class SecurityConfig {
                 authorizeRequests
                         .requestMatchers(WHITE_LIST.toArray(new String[0])).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/advertisements/*").permitAll()
-                        .requestMatchers("api/v1/advertisements/{advertisementId}/actions/click").permitAll()
+                        .requestMatchers("/api/v1/advertisements/{advertisementId}/actions/click").permitAll()
                         .anyRequest().authenticated()
         );
 
